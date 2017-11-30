@@ -105,9 +105,9 @@ class Cleaner:
 
     def delete_cloudwatch_alarms(self, cloudwatch):
         alarms = cloudwatch.describe_alarms()
-        alarms_to_delete = [alarm.get("AlarmName") 
+        alarms_to_delete = [alarm.get("AlarmName")
             for alarm in alarms.get("MetricAlarms")
-            if alarm.get("AlarmName") 
+            if alarm.get("AlarmName")
             not in self.config.get("preserved_resources", {}).get("cloudwatch_alarms", [])]
         if alarms_to_delete:
             print("Alarms that will be deleted:", alarms_to_delete)
@@ -127,11 +127,11 @@ class Cleaner:
         def not_default(resource):
             return resource["GroupName"] != "default"
         self._simple_delete(
-            ec2.describe_security_groups, 
-            ec2.delete_security_group, 
-            "securitygroups", 
-            "SecurityGroups", 
-            "GroupId", 
+            ec2.describe_security_groups,
+            ec2.delete_security_group,
+            "securitygroups",
+            "SecurityGroups",
+            "GroupId",
             filter_function=not_default
         )
 
