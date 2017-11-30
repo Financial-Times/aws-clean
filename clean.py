@@ -67,11 +67,11 @@ class Cleaner:
         assert account_alias == self.config.get("assertions").get("account_alias"), "Unexpected AWS Account alias, check configuration!"
 
         # IAM username in config.yml must match the IAM user whose API key we are using
-        current_user = iam_resource.CurrentUser().user_name
-        assert current_user == self.config.get("assertions").get("iam_username"), "Unexpected IAM User name, check configuration!"
+        # current_user = iam_resource.CurrentUser().user_name
+        # assert current_user == self.config.get("assertions").get("iam_username"), "Unexpected IAM User name, check configuration!"
 
-        print("You are {} on account {} ({})".format(current_user, account_id, account_alias))
-        if not self._ask("Proceed?", "no"): sys.exit()
+        # print("You are {} on account {} ({})".format(current_user, account_id, account_alias))
+        # if not self._ask("Proceed?", "no"): sys.exit()
 
     def delete_cloudformation_stacks(self, cf):
         args = {
