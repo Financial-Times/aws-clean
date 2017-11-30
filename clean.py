@@ -145,16 +145,20 @@ def _get_config_from_file(filename):
         config = yaml.load(stream)
     return config
 
-def get_boto_session(profile_name):
+def get_boto_session(config):
     import boto3
-    return boto3.Session(profile_name=profile_name)
+    if 'profile_name' in config:
+        session = boto3.Session(profile_name=profile_name)
+    else:
+        session = boto3.Session()
+    return session
 
 if __name__ == "__main__":
     config = _get_config_from_file(sys.argv[1])
     cleaner = Cleaner(config)
     print("Current configuration:\n", yaml.dump(config, default_flow_style=False))
 
-    boto_session = get_boto_session(config["profile_name"])
+    boto_session = get_boto_session(config=config)
 
     cf = boto_session.client("cloudformation")
     cloudwatch = boto_session.client("cloudwatch")
